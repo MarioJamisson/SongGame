@@ -1,4 +1,4 @@
-
+P
 # 🎵 Party Game: Temas Musicais — Expo SDK 53
 
 Compatível com **Expo Go para SDK 53**.
