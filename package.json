@@ -1,0 +1,22 @@
+{
+  "name": "tema-musical-game",
+  "version": "1.0.3",
+  "private": true,
+  "main": "expo/AppEntry",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "expo": "^53.0.0",
+    "expo-status-bar": "~2.2.3",
+    "expo-clipboard": "~7.1.5",
+    "react": "19.0.0",
+    "react-native": "0.79.5",
+    "react-dom": "19.0.0",
+    "react-native-web": "^0.20.0",
+    "@expo/metro-runtime": "~5.0.4"
+  }
+}
