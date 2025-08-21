@@ -1,1 +1,41 @@
-node_modules
+# dependências
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Expo
+.expo/
+.expo-shared/
+
+# EAS build
+dist/
+build/
+*.tar.gz
+
+# caches
+.cache/
+.expo/web-build/
+*.tmp
+
+# sistema
+.DS_Store
+Thumbs.db
+
+# Android
+android/app/build/
+android/.gradle/
+android/.idea/
+android/local.properties
+android/key.properties
+*.keystore
+
+# iOS
+ios/build/
+ios/Pods/
+ios/Podfile.lock
+*.xcworkspace
+
+# configs locais
+.env
+*.secret

@@ -342,12 +342,20 @@ export default function App() {
   }
 
   if (mode === "lobby") {
-    const catalog = { ...DECKS_CATALOG, "Personalizados": customThemes };
-    const deckNames = Object.keys(catalog);
+  const catalog = { ...DECKS_CATALOG, "Personalizados": customThemes };
+  const deckNames = Object.keys(catalog);
 
-    return (
-      <Screen>
-        <Title>Multiplayer — Lobby</Title>
+  return (
+    <Screen>
+      <Title>Multiplayer — Lobby</Title>
+
+      {/* Área rolável */}
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={{ paddingBottom: 140 }} // espaço pro rodapé fixo
+        keyboardShouldPersistTaps="handled"
+      >
+        {/* Jogadores */}
         <View style={styles.card}>
           <Text style={styles.cardLabel}>Adicione jogadores</Text>
           <Row>
@@ -360,7 +368,9 @@ export default function App() {
             />
             <PrimaryButton label="Adicionar" onPress={addPlayer} />
           </Row>
+
           {players.length === 0 && <Text style={styles.muted}>Ninguém ainda…</Text>}
+
           {players.map((p) => (
             <Row key={p.id} style={{ marginTop: 8, alignItems: "center" }}>
               <Text style={{ color: "#EDEDF7", flex: 1 }}>{p.name}</Text>
@@ -369,13 +379,18 @@ export default function App() {
           ))}
         </View>
 
+        {/* Baralhos */}
         <View style={styles.card}>
           <Text style={styles.cardLabel}>Baralhos de temas (marque os que quiser)</Text>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
             {deckNames.map((d) => {
               const active = selectedDecks.includes(d);
               return (
-                <TouchableOpacity key={d} style={[styles.deckChip, active && styles.deckChipActive]} onPress={() => toggleDeck(d)}>
+                <TouchableOpacity
+                  key={d}
+                  style={[styles.deckChip, active && styles.deckChipActive]}
+                  onPress={() => toggleDeck(d)}
+                >
                   <Text style={[styles.deckChipText, active && styles.deckChipTextActive]}>{d}</Text>
                 </TouchableOpacity>
               );
@@ -393,27 +408,35 @@ export default function App() {
             />
             <PrimaryButton label="Adicionar" onPress={addCustomTheme} />
           </Row>
+
           {customThemes.length > 0 && (
             <>
-              <Text style={[styles.muted, { marginTop: 10 }]}>Personalizados ({customThemes.length})</Text>
+              <Text style={[styles.muted, { marginTop: 10 }]}>
+                Personalizados ({customThemes.length})
+              </Text>
               <FlatList
                 data={customThemes}
                 keyExtractor={(item, i) => item + i}
-                renderItem={({ item }) => <Text style={{ color: "#EDEDF7", marginTop: 6 }}>• {item}</Text>}
-                style={{ maxHeight: 120, marginTop: 6 }}
+                renderItem={({ item }) => (
+                  <Text style={{ color: "#EDEDF7", marginTop: 6 }}>• {item}</Text>
+                )}
+                style={{ maxHeight: 140, marginTop: 6 }}
               />
             </>
           )}
         </View>
+      </ScrollView>
 
-        <Row>
-          <PrimaryButton label="Começar rodada" onPress={goToTheme} disabled={!canStart} />
-          <GhostButton label="⬅️ Voltar" onPress={() => setMode("home")} />
-        </Row>
-        <Footer />
-      </Screen>
-    );
-  }
+      {/* Rodapé fixo (CTA sempre visível) */}
+      <View style={styles.footerBar}>
+        <PrimaryButton label="Começar rodada" onPress={goToTheme} disabled={!canStart} />
+        <GhostButton label="⬅️ Voltar" onPress={() => setMode("home")} />
+      </View>
+
+      <Footer />
+    </Screen>
+  );
+}
 
   if (mode === "theme") {
     return (
@@ -551,7 +574,7 @@ function Row({ children, style: st }) {
   return <View style={[{ flexDirection: "row", marginBottom: 10, flexWrap: "wrap" }, st]}>{children}</View>;
 }
 function Footer() {
-  return <Text style={styles.footer}>Feito com ❤️ no Expo</Text>;
+  return <Text style={styles.footer}>Uma produção de Mario Jamisson</Text>;
 }
 function PrimaryButton({ label, onPress, disabled }) {
   return (
